@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from splinter import Browser
 import pandas as pd
 import requests
-import os
+# import os
 
 executable_path = {"executable_path": "chromedriver.exe"}
 browser = Browser("chrome", **executable_path, headless=False)
@@ -11,12 +11,11 @@ def scrape():
     final_data = {}
     output = mars_news()
     final_data["mars_news"] = output[0]
-    final_data["mars_paragraph"] = output[1]
     final_data["featured_image_url"] = mars_img()
-    final_data["mars_info"] = mars_weather()
     final_data["mars_facts"] = mars_info()
+    final_data["mars_info"] = mars_weather()
     final_data["hemisphere_image_urls"] = mars_hem()
-
+    
     return final_data
 
 
@@ -29,7 +28,7 @@ def mars_news():
     news_title = article.find("div", class_="content_title").text
     news_p = article.find("div", class_ ="article_teaser_body").text
     output = [news_title, news_p]
-    browser.quit()
+    # browser.quit()
     return output
 
 
@@ -40,7 +39,7 @@ def mars_img():
     soup = BeautifulSoup(html, "html.parser")
     image = soup.find("img", class_="thumb")["src"]
     featured_image_url = "https://www.jpl.nasa.gov" + image
-    browser.quit()
+    # browser.quit()
     return featured_image_url
     
 def mars_weather():
@@ -57,9 +56,10 @@ def mars_weather():
                 break
             else:
                 pass
-        return mars_info
+                return mars_info
     finally:
         browser.quit()
+
 
 def mars_info():
     facts_url = "https://space-facts.com/mars/"
@@ -89,4 +89,4 @@ def mars_hem():
         img_url = hemispheres_main_url + soup.find('img', class_='wide-image')['src']
         hemisphere_image_urls.append({"title" : title, "img_url" : img_url})
     return hemisphere_image_urls
-    browser.quit()
+    # browser.quit()
