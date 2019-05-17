@@ -20,17 +20,13 @@ def home():
 
 # Route that will trigger scrape function
 @app.route("/scrape")
-def scrape(): 
+def newhome(): 
 
-    mars_info = mongo.db.mars_info
-    mars_data = scrape_mars.mars_news()
-    mars_data = scrape_mars.mars_img()
-    mars_data = scrape_mars.mars_info()
-    mars_data = scrape_mars.mars_weather()
-    mars_data = scrape_mars.mars_hem()
-    mars_info.update({}, mars_data, upsert=True)
+    # Find data
+    mars_info = mongo.db.mars_info.find_one()
 
-    return redirect("/", code=302)
+    # Return template and data
+    return render_template("index.html", mars_info=mars_info)
 
 if __name__ == "__main__": 
     app.run(debug= True)
