@@ -1,8 +1,8 @@
 # Import Dependencies 
 from flask import Flask, render_template, redirect 
 from flask_pymongo import PyMongo
-# from flask_flatpages import FlatPages
 # need to research: https://nicolas.perriault.net/code/2012/dead-easy-yet-powerful-static-website-generator-with-flask/
+# from flask_flatpages import FlatPages
 # https://stevenloria.com/hosting-static-flask-sites-on-github-pages/
 import scrape_mars
 import os
