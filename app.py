@@ -1,39 +1,25 @@
 # Import Dependencies 
 from flask import Flask, render_template, redirect 
 from flask_pymongo import PyMongo
-# need to research: https://nicolas.perriault.net/code/2012/dead-easy-yet-powerful-static-website-generator-with-flask/
-# from flask_flatpages import FlatPages
-# https://stevenloria.com/hosting-static-flask-sites-on-github-pages/
 import scrape_mars
-import os
 
-DEBUG = True
-FLATPAGES_AUTO_RELOAD = DEBUG
-FLATPAGES_EXTENSION = '.md'
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
-mongo = PyMongo(app)
 
-# Create route that renders index.html template and finds documents from mongo
+mongo = PyMongo(app, uri="mongodb://localhost:27017/marsDatabase")
+
+
 @app.route("/")
 def home(): 
+    mars_info = mongo.db.collection.find_one()
+    print(mars_info)
+    return render_template("index.html", mars=mars_info)
 
-    # Find data
-    mars_info = mongo.db.mars_info.find_one()
-
-    # Return template and data
-    return render_template("index.html", mars_info=mars_info)
-
-# Route that will trigger scrape function
 @app.route("/scrape")
 def newhome(): 
-
-    # Find data
-    mars_info = mongo.db.mars_info.find_one()
-
-    # Return template and data
-    return render_template("index.html", mars_info=mars_info)
+    mars_info = scrape_mars.mars_rescrape()
+    mongo.db.collection.update({}, mars_info, upsert=True)
+    return redirect("/")
 
 if __name__ == "__main__": 
-    app.run(port=8000)
+    app.run(debug=True)

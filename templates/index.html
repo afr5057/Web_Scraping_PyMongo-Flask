@@ -28,8 +28,8 @@
         <div class="container">
             <img src="https://mars.nasa.gov/system/resources/detail_files/22441_PIA23180_raw-web.gif" class="img-responsive" alt="InSight Clouds" align="right" style="width:200px;height:200px;">
             <h3>Latest Mars News</h3>
-            <h6 style="color: #c1440e">{{ mars_info.news_title }}</h6>
-            <p>{{ mars_info.news_paragraph }}</p>
+            <h6 style="color: #c1440e">{{ mars.news_title }}</h6>
+            <p>{{ mars.news_paragraph }}</p>
             
         </div>
     </div>
@@ -45,7 +45,7 @@
             <div class="col-xs-7 col-sm-6 col-lg-8">
        
             <h4>Featured Mars Image</h3>
-            <img src="{{ mars_info.featured_image_url }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
+            <img src="{{ mars.featured_image_url }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
             </div>
         
 
@@ -55,7 +55,7 @@
                         <div class="card" style="width: 21rem;">
                             <div class="card-body text-white bg-dark">
                                 <h6 class="card-title">Current Weather on Mars</h6>
-                                <p class="card-text">{{ mars_info.weather_tweet }}</p>
+                                <p class="card-text">{{ mars.weather_tweet }}</p>
                             </div>
     
                         </div>
@@ -64,7 +64,7 @@
                     <br>
                     <h3>Mars Facts</h3>
                     <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 65px;">
-                        {{ mars_info.mars_facts|safe}}
+                        {{ mars.mars_facts|safe}}
                     </div>
                 </div> <!-- col4 -->
             </div><!-- Row -->
@@ -76,7 +76,7 @@
             <hr>
             <div class="col-md-12">
                 <div class="row">
-                    {% for item in mars_info.hiu %}
+                    {% for item in mars.hiu %}
                     <div class="col-md-6">
                         <div class="card text-white bg-dark" style="margin: 30px;">
                             <img class="card-img-top" src="{{ item.img_url }}" />
