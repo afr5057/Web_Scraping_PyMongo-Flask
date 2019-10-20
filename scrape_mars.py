@@ -82,10 +82,14 @@ def mars_rescrape():
     browser.visit(facts_url)
     mars_data = pd.read_html(facts_url)
     mars_data_df = mars_data[0]
-    mars_data_df.columns = ["Description", "Value1", "Value2"]
+    mars_data_df.columns = ["Description", "Mars", "Earth"]
     mars_data_df.set_index("Description", inplace = True)
     mars_facts = mars_data_df.to_html()
     print(mars_facts)
+
+
+
+
 
 
     # Visit hemispheres website through splinter module 
